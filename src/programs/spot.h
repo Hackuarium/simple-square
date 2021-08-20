@@ -1,0 +1,2 @@
+
+void spot(char data[]);

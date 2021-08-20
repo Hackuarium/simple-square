@@ -15,35 +15,33 @@ void TaskPixels(void* pvParameters) {
   xLastWakeTime = xTaskGetTickCount();
 
   CRGB pixels[MAX_LED];
-  char data[MAX_LED*3];
+  char data[MAX_LED * 3];
 
   LEDS.addLeds<WS2812B, PIXELS_PIN, GRB>(pixels, MAX_LED);
 
-
-LEDS.setBrightness(50);
+  LEDS.setBrightness(50);
 
   blank(data);
   copyDataToPixels(data, pixels);
   LEDS.show();  // Initialize all pixels to 'off'
 
-
   while (true) {
     vTaskDelayUntil(&xLastWakeTime, xFrequency);
     update(data);
-    copyDataToPixels(data, pixels); 
+    copyDataToPixels(data, pixels);
     LEDS.show();  // Send the updated pixel colors to the hardware.
   }
 }
 
 void copyDataToPixels(char data[], CRGB pixels[]) {
   for (uint16_t i = 0; i < MAX_LED; i++) {
-    pixels[i] = CRGB(data[i*3], data[i*3+1], data[i*3+2]);
+    pixels[i] = CRGB(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
   }
 }
 
 void blank(char data[]) {
-  for (uint16_t i = 0; i < MAX_LED*3; i++) {
-	  data[i]=0;
+  for (uint16_t i = 0; i < MAX_LED * 3; i++) {
+    data[i] = 0;
   }
 }
 

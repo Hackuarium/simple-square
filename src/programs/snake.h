@@ -1,0 +1,2 @@
+
+void snake(char data[]);
